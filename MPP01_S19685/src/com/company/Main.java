@@ -35,6 +35,10 @@ public class Main {
         int vectorSize = TRAINNG_SET.get(0).length-1;
 
         System.out.println("Podaj wektor "+ vectorSize + " lub nazwe pliku testowego");
+        Float arr[] = new Float[vectorSize];
+        for (int i =0; i<vectorSize; i++){
+            arr[i]=scanner.nextFloat();
+        }
         String vector = scanner.nextLine();
         scanner.nextInt();
         System.out.println("wtf");
