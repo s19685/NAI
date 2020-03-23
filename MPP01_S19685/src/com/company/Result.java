@@ -1,11 +1,10 @@
 package com.company;
 
+import java.util.List;
+
 public class Plant {
 
-    private int leafLength;
-    private int leafWidth;
-    private int flakeLength;
-    private int flakeWidth;
+    List<Double> arguments;
     private String type;
 
     public Plant(int leafLength, int leafWidth, int flakeLength, int flakeWidth, String type) {
