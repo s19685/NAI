@@ -42,18 +42,20 @@ public class Main {
             String result = getNearest(array, k);
             System.out.println(testString[testString.length - 1].equals(result) ? show(testString) : showErr(testString, result));
         }
-        System.out.println("Prawidlowo zakwalifikowane przyklady: " + COUNTER);
+        System.out.println("Prawidlowo zakwalifikowane przyklady: " + COUNTER+" poprawnosc: " + (double)COUNTER/TEST_SET.size()+"%");
 
-        System.out.println("Podaj wektor skladajacy sie z " + vectorSize + " argumentow.");
+        while (true) {
+            System.out.println("Podaj wektor skladajacy sie z " + vectorSize + " argumentow.");
 
-        Double[] arguments = new Double[vectorSize];
-        for (int i = 0; i < vectorSize; i++) {
-            System.out.println("podaj " + (i + 1) + " argument");
-            arguments[i] = scanner.nextDouble();
+            Double[] arguments = new Double[vectorSize];
+            for (int i = 0; i < vectorSize; i++) {
+                System.out.println("podaj " + (i + 1) + " argument");
+                arguments[i] = scanner.nextDouble();
+            }
+
+            System.out.println("Podany wektor zostal zaklasyfikowany jako " + getNearest(arguments, k));
+            System.out.println();
         }
-
-        System.out.println("Podany wektor zostal zaklasyfikowany jako " + getNearest(arguments, k));
-
     }
 
 
@@ -88,13 +90,9 @@ public class Main {
             }
         }
 
-//        for (int i = 0; i < unique.length; i++) System.out.println(unique[i]);
-
-//        for (int i = 0; i < counts.length; i++) System.out.println(counts[i]);
-
+        if(counts.length==1) return unique[0];
 
         int max = counts[0];
-
         for (int i = 1; i < counts.length; i++){
             if (counts[i] > max) max = counts[i];
         }
@@ -116,21 +114,16 @@ public class Main {
             return unique[index];
         }
         else{
-            int[] ix = new int[freq];
             System.out.println("multiple majority classes: "+freq);
-            int ixi = 0;
+            int[] maxIndexes = new int[freq];
+            int mIindex = 0;
             for (int i = 0; i<counts.length;i++){
-                if(counts[i] == max){
-                    ix[ixi] = i;
-                    ixi++;
-                }
+                if(counts[i] == max) maxIndexes[mIindex++] = i;
             }
-            for (int i = 0; i<ix.length;i++) System.out.println("class index"+ ix[i]);
 
-            int randomIndex = new Random().nextInt(ix.length);
-            System.out.println("random index "+randomIndex);
-            int nIndex = ix[randomIndex];
-            return unique[nIndex];
+            int randomIndex = new Random().nextInt(maxIndexes.length);
+            int resultIndex = maxIndexes[randomIndex];
+            return unique[resultIndex];
         }
     }
 
