@@ -42,7 +42,7 @@ public class Main {
             String result = getNearest(array, k);
             System.out.println(testString[testString.length - 1].equals(result) ? show(testString) : showErr(testString, result));
         }
-        System.out.println("Prawidlowo zakwalifikowane przyklady: " + COUNTER+" poprawnosc: " + (double)COUNTER/TEST_SET.size()+"%");
+        System.out.println("Prawidlowo zakwalifikowane przyklady: " + COUNTER + " poprawnosc: " + (double) COUNTER / TEST_SET.size() + "%");
 
         while (true) {
             System.out.println("Podaj wektor skladajacy sie z " + vectorSize + " argumentow.");
@@ -90,35 +90,34 @@ public class Main {
             }
         }
 
-        if(counts.length==1) return unique[0];
+        if (unique.length == 1) return unique[0];
 
         int max = counts[0];
-        for (int i = 1; i < counts.length; i++){
+        for (int i = 1; i < counts.length; i++) {
             if (counts[i] > max) max = counts[i];
         }
 
         int freq = 0;
-        for(int i=0;i<counts.length;i++){
-            if(counts[i] == max) freq++;
+        for (int i = 0; i < counts.length; i++) {
+            if (counts[i] == max) freq++;
         }
 
         int index = -1;
 
-        if(freq==1){
-            for(int i=0; i<counts.length; i++){
-                if(counts[i] == max){
+        if (freq == 1) {
+            for (int i = 0; i < counts.length; i++) {
+                if (counts[i] == max) {
                     index = i;
                     break;
                 }
             }
             return unique[index];
-        }
-        else{
-            System.out.println("multiple majority classes: "+freq);
+        } else {
+            System.out.println("\u001B[31 mmultiple majority classes: " + freq + " better change k  \u001B[0m");
             int[] maxIndexes = new int[freq];
             int mIindex = 0;
-            for (int i = 0; i<counts.length;i++){
-                if(counts[i] == max) maxIndexes[mIindex++] = i;
+            for (int i = 0; i < counts.length; i++) {
+                if (counts[i] == max) maxIndexes[mIindex++] = i;
             }
 
             int randomIndex = new Random().nextInt(maxIndexes.length);
