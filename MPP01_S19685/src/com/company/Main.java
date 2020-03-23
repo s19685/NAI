@@ -3,10 +3,7 @@ package com.company;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
-import java.util.ArrayList;
-import java.util.Comparator;
-import java.util.List;
-import java.util.Scanner;
+import java.util.*;
 
 public class Main {
 
@@ -82,9 +79,59 @@ public class Main {
     }
 
     private static String majorityType(String[] tab) {
-        String result = "";
+        Set<String> h = new HashSet<>(Arrays.asList(tab));
+        String[] unique = h.toArray(new String[0]);
+        int[] counts = new int[unique.length];
+        for (int i = 0; i < unique.length; i++) {
+            for (int j = 0; j < tab.length; j++) {
+                if (tab[j].equals(unique[i])) counts[i]++;
+            }
+        }
 
-        return result;
+//        for (int i = 0; i < unique.length; i++) System.out.println(unique[i]);
+
+//        for (int i = 0; i < counts.length; i++) System.out.println(counts[i]);
+
+
+        int max = counts[0];
+
+        for (int i = 1; i < counts.length; i++){
+            if (counts[i] > max) max = counts[i];
+        }
+
+        int freq = 0;
+        for(int i=0;i<counts.length;i++){
+            if(counts[i] == max) freq++;
+        }
+
+        int index = -1;
+
+        if(freq==1){
+            for(int i=0; i<counts.length; i++){
+                if(counts[i] == max){
+                    index = i;
+                    break;
+                }
+            }
+            return unique[index];
+        }
+        else{
+            int[] ix = new int[freq];
+            System.out.println("multiple majority classes: "+freq);
+            int ixi = 0;
+            for (int i = 0; i<counts.length;i++){
+                if(counts[i] == max){
+                    ix[ixi] = i;
+                    ixi++;
+                }
+            }
+            for (int i = 0; i<ix.length;i++) System.out.println("class index"+ ix[i]);
+
+            int randomIndex = new Random().nextInt(ix.length);
+            System.out.println("random index "+randomIndex);
+            int nIndex = ix[randomIndex];
+            return unique[nIndex];
+        }
     }
 
 
