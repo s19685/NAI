@@ -34,15 +34,7 @@ public class Main {
         int k = scanner.nextInt();
         int vectorSize = TRAINING_SET.get(0).length - 1;
 
-        COUNTER = 0;
-        for (String[] testString : TEST_SET) {
-            Double[] array = new Double[testString.length - 1];
-            for (int i = 0; i < array.length; i++) array[i] = Double.parseDouble(testString[i].replace(",", "."));
-
-            String result = getNearest(array, k);
-            System.out.println(testString[testString.length - 1].equals(result) ? show(testString) : showErr(testString, result));
-        }
-        System.out.println("Prawidlowo zakwalifikowane przyklady: " + COUNTER + " poprawnosc: " + (double) COUNTER / TEST_SET.size() + "%");
+        testingTestSet(k);
 
         while (true) {
             System.out.println("Podaj wektor skladajacy sie z " + vectorSize + " argumentow.");
@@ -58,6 +50,17 @@ public class Main {
         }
     }
 
+    private static void testingTestSet(int k) {
+        COUNTER = 0;
+        for (String[] testString : TEST_SET) {
+            Double[] array = new Double[testString.length - 1];
+            for (int i = 0; i < array.length; i++) array[i] = Double.parseDouble(testString[i].replace(",", "."));
+
+            String result = getNearest(array, k);
+            System.out.println(testString[testString.length - 1].equals(result) ? show(testString) : showErr(testString, result));
+        }
+        System.out.println("Prawidlowo zakwalifikowane przyklady: " + COUNTER + " poprawnosc: " + (double) COUNTER / TEST_SET.size() + "%");
+    }
 
     private static String getNearest(Double[] array, int k) {
         List<Result> resultList = new ArrayList<>();
@@ -113,7 +116,7 @@ public class Main {
             }
             return unique[index];
         } else {
-            System.out.println("\u001B[31 mmultiple majority classes: " + freq + " better change k  \u001B[0m");
+            System.out.println("\u001B[31 Wiele klas dominujacych: " + freq + " lepiej zmien k  \u001B[0m");
             int[] maxIndexes = new int[freq];
             int mIindex = 0;
             for (int i = 0; i < counts.length; i++) {
@@ -125,7 +128,6 @@ public class Main {
             return unique[resultIndex];
         }
     }
-
 
     private static void showList(List<String[]> list) {
         for (String[] s : list) {
@@ -148,6 +150,4 @@ public class Main {
         for (String s : tab) result += s + " ";
         return result;
     }
-
-
 }
