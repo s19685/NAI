@@ -16,4 +16,12 @@ public class Training {
         for (Double d : arguments) System.out.print(d + " ");
         System.out.println(output);
     }
+
+    public Double[] getArguments() {
+        return arguments;
+    }
+
+    public boolean getOutput() {
+        return output;
+    }
 }
