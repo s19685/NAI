@@ -1,39 +1,79 @@
 package com.company;
 
+
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.List;
+import java.util.*;
+import java.util.stream.Stream;
 
 public class Main {
 
+    public static int ARGSIZE;
+    public static int COUNTER;
+
+
     public static void main(String[] args) {
-        // write your code here
+
         List<Training> trainingList = new ArrayList<>();
+        List<String[]> testingList = new ArrayList<>();
+
 
         try {
             List<String> lines = Files.readAllLines(Paths.get("iris_training.txt"));
-            //List<String> test = Files.readAllLines(Paths.get("iris_test.txt"));
+            List<String> test = Files.readAllLines(Paths.get("iris_test.txt"));
             for (String line : lines) {
                 String[] lineTab = line.replace(" ", "").split("\t");
-                List<Double> argss = new ArrayList<>();
-                for (int i = 0; i < lineTab.length - 1; i++) argss.add(Double.valueOf(lineTab[i]));
-                int output = lineTab[lineTab.length - 1].equals("Iris-setosa") ? 1 : 0;
-
-//                trainingList.add(new Training(argss,output));
-                trainingList.add(new Training(Arrays.asList(Arrays.stream(Arrays.copyOf(lineTab, lineTab.length - 1)).map(s->Double.valueOf(s))), lineTab[lineTab.length - 1].equals("Iris-setosa") ? 1 : 0));
+                ARGSIZE = lineTab.length - 1;
+                trainingList.add(new Training(toDoubleArray(lineTab), lineTab[ARGSIZE].equals("Iris-setosa")));
             }
-
-            //for (String line : lines) TRAINING_SET.add(line.replace(" ", "").split("\t"));
-            // for (String line : test) TEST_SET.add(line.replace(" ", "").split("\t"));
+            for (String line : test) testingList.add(line.replace(" ", "").split("\t"));
         } catch (IOException e) {
             e.printStackTrace();
         }
 
+        for (Training t : trainingList) t.show();
+
+        trainingAction(trainingList);
+
+        testingTestSet();
+        System.out.println("xd");
+
+        COUNTER = 0;
+        for (String[] t : testingList) {
+            boolean result = check(toDoubleArray(Arrays.copyOf(t, ARGSIZE)));
+            if (t[t.length - 1].equals("Iris-setosa") && result) COUNTER++;
+            if (!t[t.length - 1].equals("Iris-setosa") && !result) COUNTER++;
+        }
+        System.out.println("prawidłowo zaklasyfikowanych przykładów: " + COUNTER + ", dokładność eksperymentu: " + (double)COUNTER/trainingList.size() + "%");
+
+        Scanner scanner = new Scanner(System.in);
+        double[] vector = new double[ARGSIZE];
+        while (true) {
+
+            for (int i = 0; i < ARGSIZE; i++) {
+                System.out.println("Podaj " + (i + 1) + " argument");
+                vector[i] = scanner.nextDouble();
+            }
+
+            for (double d : vector) System.out.print(d + " ");
+        }
+    }
+
+    private static void testingTestSet() {
+    }
+
+    private static void trainingAction(List<Training> trainingList) {
+    }
+
+    private static boolean check(Double[] vector) {
+        return true;
+    }
 
 
+    public static Double[] toDoubleArray(String[] tab) {
+        return Stream.of(Arrays.copyOf(tab, ARGSIZE))
+                .map(s -> Double.valueOf(s.replace(",", ".")))
+                .toArray(Double[]::new);
     }
 }

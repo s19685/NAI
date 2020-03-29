@@ -1,15 +1,19 @@
 package com.company;
 
-import java.util.List;
 
-public class Training<T> {
+public class Training {
 
 
-    private List<T> arguments;
-    private int output;
+    private Double[] arguments;
+    private boolean output;
 
-    public Training(List<T> arguments, int output) {
+    public Training(Double[] arguments, boolean output) {
         this.arguments = arguments;
         this.output = output;
+    }
+
+    public void show() {
+        for (Double d : arguments) System.out.print(d + " ");
+        System.out.println(output);
     }
 }
