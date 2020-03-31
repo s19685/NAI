@@ -59,7 +59,7 @@ public class Main {
             String result = getNearest(array, k);
             System.out.println(testString[testString.length - 1].equals(result) ? show(testString) : showErr(testString, result));
         }
-        System.out.println("Prawidlowo zakwalifikowane przyklady: " + COUNTER + " poprawnosc: " + (double) COUNTER / TEST_SET.size() + "%");
+        System.out.println("Prawidlowo zakwalifikowane przyklady: " + COUNTER + " poprawnosc: " + (double) COUNTER / TEST_SET.size()*100 + "%");
     }
 
     private static String getNearest(Double[] array, int k) {
@@ -116,7 +116,7 @@ public class Main {
             }
             return unique[index];
         } else {
-            System.out.println("\u001B[31 Wiele klas dominujacych: " + freq + " lepiej zmien k  \u001B[0m");
+            System.out.println("\u001B[31 W klas dominujacych: " + freq + " \u001B[0m");
             int[] maxIndexes = new int[freq];
             int mIindex = 0;
             for (int i = 0; i < counts.length; i++) {

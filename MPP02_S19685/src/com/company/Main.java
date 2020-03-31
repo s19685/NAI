@@ -38,7 +38,7 @@ public class Main {
 
         weights = new double[ARGSIZE + 1];
         for (int i = 0; i < weights.length; i++) weights[i] = Math.random();
-        
+
         trainingAction(trainingList);
 
         testingTestSet();
@@ -66,7 +66,8 @@ public class Main {
             if (t[t.length - 1].equals("Iris-setosa") && result) COUNTER++;
             if (!t[t.length - 1].equals("Iris-setosa") && !result) COUNTER++;
         }
-        System.out.println("prawidłowo zaklasyfikowanych przykładów: " + COUNTER + ", dokładność eksperymentu: " + (int) ((double) COUNTER / TESTING_LIST.size() * 100) + "%");
+        System.out.println("prawidłowo zaklasyfikowanych przykładów: " + COUNTER +
+                           ", dokładność eksperymentu: " + (int) ((double) COUNTER / TESTING_LIST.size() * 100) + "%");
 
     }
 
@@ -82,7 +83,7 @@ public class Main {
                 boolean test = check(t.getArguments());
                 if (test == t.getOutput()) continue;
                 d = !test && t.getOutput() ? 1 : -1;
-                for (int i = 0; i < weights.length - 1; i++) {
+                for (int i = 0; i < ARGSIZE; i++) {
                     weights[i] += d * LEARNING_RATE * t.getArguments()[i];
                 }
                 weights[weights.length - 1] += d * LEARNING_RATE;

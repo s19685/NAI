@@ -3,9 +3,7 @@
   <component name="ChangeListManager">
     <list default="true" id="1524ade6-93a4-4924-bff4-2a46441e6e7d" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/MPP02_S19685/com/company/Main.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/MPP02_S19685/com/company/Main.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/com/company/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/company/Main.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/company/Training.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/company/Training.java" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -19,8 +17,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/com/company/Main.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="420">
-              <caret line="40" column="8" selection-start-line="40" selection-start-column="8" selection-end-line="40" selection-end-column="8" />
+            <state relative-caret-position="-327">
+              <caret line="43" column="25" lean-forward="true" selection-start-line="43" selection-start-column="25" selection-end-line="43" selection-end-column="25" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -31,13 +29,13 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/com/company/Training.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="345">
-              <caret line="23" column="22" selection-start-line="23" selection-start-column="22" selection-end-line="23" selection-end-column="22" />
+            <state relative-caret-position="330">
+              <caret line="22" selection-start-line="22" selection-end-line="22" />
               <folding>
-                <element signature="e#416#417#0" expanded="true" />
-                <element signature="e#448#449#0" expanded="true" />
-                <element signature="e#481#482#0" expanded="true" />
-                <element signature="e#510#511#0" expanded="true" />
+                <element signature="e#406#407#0" expanded="true" />
+                <element signature="e#438#439#0" expanded="true" />
+                <element signature="e#472#473#0" expanded="true" />
+                <element signature="e#501#502#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -59,6 +57,7 @@
     <option name="CHANGED_PATHS">
       <list>
         <option value="$PROJECT_DIR$/src/com/company/Training.java" />
+        <option value="$USER_HOME$/Downloads/Perceptron.java" />
         <option value="$PROJECT_DIR$/src/com/company/Main.java" />
       </list>
     </option>
@@ -73,8 +72,6 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="Scope" />
-      <pane id="PackagesPane" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -97,6 +94,8 @@
           <select />
         </subPane>
       </pane>
+      <pane id="Scope" />
+      <pane id="PackagesPane" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -145,18 +144,19 @@
       <updated>1585321495089</updated>
       <workItem from="1585321501828" duration="2270000" />
       <workItem from="1585394522215" duration="6602000" />
-      <workItem from="1585419026299" duration="6126000" />
+      <workItem from="1585419026299" duration="6659000" />
+      <workItem from="1585519391616" duration="646000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="14998000" />
+    <option name="totallyTimeSpent" value="16177000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="0" width="1440" height="900" extended-state="0" />
     <editor active="true" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.16595136" />
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.19670959" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Image Layers" order="2" />
       <window_info id="Designer" order="3" />
@@ -165,7 +165,7 @@
       <window_info id="Favorites" order="6" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" />
-      <window_info active="true" anchor="bottom" id="Run" order="2" visible="true" weight="0.29638556" />
+      <window_info anchor="bottom" id="Run" order="2" weight="0.29638556" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.4" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
@@ -191,23 +191,28 @@
     <option name="version" value="1" />
   </component>
   <component name="editorHistoryManager">
+    <entry file="file://$USER_HOME$/Downloads/Perceptron.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-2043" />
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/com/company/Training.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="345">
-          <caret line="23" column="22" selection-start-line="23" selection-start-column="22" selection-end-line="23" selection-end-column="22" />
+        <state relative-caret-position="330">
+          <caret line="22" selection-start-line="22" selection-end-line="22" />
           <folding>
-            <element signature="e#416#417#0" expanded="true" />
-            <element signature="e#448#449#0" expanded="true" />
-            <element signature="e#481#482#0" expanded="true" />
-            <element signature="e#510#511#0" expanded="true" />
+            <element signature="e#406#407#0" expanded="true" />
+            <element signature="e#438#439#0" expanded="true" />
+            <element signature="e#472#473#0" expanded="true" />
+            <element signature="e#501#502#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/com/company/Main.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="420">
-          <caret line="40" column="8" selection-start-line="40" selection-start-column="8" selection-end-line="40" selection-end-column="8" />
+        <state relative-caret-position="-327">
+          <caret line="43" column="25" lean-forward="true" selection-start-line="43" selection-start-column="25" selection-end-line="43" selection-end-column="25" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
