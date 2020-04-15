@@ -1,0 +1,3 @@
+Se pose parfois un problème de rigueur lorsqu'un contributeur ajoute, dans un article, du contenu comportant un lien sans vérifier si celui-ci n'existe pas déjà juste avant dans l’article. Dans ce cas, mieux vaut se consacrer à établir des liens internes pertinents qui n'existent pas, plutôt que de s'évertuer à répéter inutilement des liens déjà existants.
+
+Il est plus judicieux de faire un lien à la première occurrence dans l’article, ou si les paragraphes sont longs, de faire un lien à chaque première occurrence dans le paragraphe. En gagnant du temps en ne se livrant pas à ce genre de manipulations répétitives, le rédacteur pourra ainsi se consacrer à des tâches plus enrichissantes pour l'article.

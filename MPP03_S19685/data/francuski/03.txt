@@ -1,0 +1,3 @@
+Un même lien répété plusieurs fois est inutile puisque pour appréhender l’ensemble du sujet, un lecteur lira le paragraphe ou l’article en entier plutôt qu’une phrase précise, et aura ainsi autant de chance de trouver les liens adéquats qui lui permettront d'approfondir certains points précis.
+
+Décrire, par exemple, la guerre de Cent Ans en faisant un lien vers la France ou l’Angleterre à chaque fois que le nom d’un des deux pays apparaît (surtout à quelques lignes d'intervalles), est superflu puisqu’il n'apporte rien de plus à la compréhension de l’article tout en mettant en doute l’intelligence du lecteur. Ces liens trop nombreux vont également contribuer à distraire le lecteur de sa lecture.
