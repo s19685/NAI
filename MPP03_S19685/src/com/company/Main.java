@@ -18,26 +18,24 @@ public class Main {
 
         for (String lang : directories) {
             preceptrons.add(new Preceptron(lang));
-            System.out.println(lang);
             options += lang + " ";
         }
 
 
+        Scanner scanner = new Scanner(System.in);
         while (true) {
             String test = "";
             System.out.println("Wpisz tekst w jednym z jezykow: " + options);
 
-            Scanner scanner = new Scanner(System.in);
-            while (scanner.hasNextLine()) {
-                test += scanner.nextLine();
-                System.out.println(test);
-                //if(scanner.nextLine().equals("xd")) System.out.println("xd");
 
-                //ZROB test dla wczytanego testu
-                //PODAJ WYNIK TESTU
-            }
+            test = scanner.nextLine();
 
-            System.out.println(test);
+            String result = "";
+            for (Preceptron p : preceptrons ) result = !p.check(test) ? "" : p.getName();
+
+
+            if(result.equals("")) result = "nieznanym";
+            System.out.println("Podany tekst jest w jezyku: "+result);
         }
     }
 }
