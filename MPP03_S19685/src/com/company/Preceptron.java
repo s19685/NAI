@@ -1,9 +1,18 @@
 package com.company;
 
+import com.sun.xml.internal.fastinfoset.tools.FI_DOM_Or_XML_DOM_SAX_SAXEvent;
+
 import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+import java.util.Map;
+import java.util.Scanner;
 
 public class Preceptron {
     private String name;
+    private Map<String,Integer> symbolsCount;
 
 
     public Preceptron(String name){
@@ -17,6 +26,22 @@ public class Preceptron {
 
 
     private void studyFile(File file) {
+
+
+        try {
+            Files.readAllLines(Paths.get("data/"+name+"/"+file.getName()));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        try {
+            Scanner scanner = new Scanner(file);
+
+
+
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
 
 
     }
