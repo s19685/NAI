@@ -1,54 +1,61 @@
 package com.company;
 
-import com.sun.xml.internal.fastinfoset.tools.FI_DOM_Or_XML_DOM_SAX_SAXEvent;
-
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.net.MalformedURLException;
 import java.nio.charset.MalformedInputException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
-import java.util.Map;
-import java.util.Scanner;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 public class Preceptron {
-    private String name;
+    private static final double LEARNING_RATE = 0.1;
+    private double[] weights;
+    private String lang;
+    private String[] others;
     private int[] lettersCount;
     private static final char STARTING_CHAR = 'a';
+    private List<Training> TRAINING_LIST;
 
 
-    public Preceptron(String name) {
-        this.name = name;
-        System.out.println(this.toString());
-        lettersCount = new int[26];
-        learn(new File("data/" + name));
-    }
-
-    private void learn(File directory) {
-        for (File file : directory.listFiles()) studyFile(file);
+    public Preceptron(String lang, String[] dirs) {
+        this.lang = lang;
+        others = Arrays.stream( dirs).filter(l -> !l.equals(lang)).toArray(String[]::new);
         System.out.println();
-        System.out.println(showLetters());
+        System.out.println(this.toString());
+        TRAINING_LIST = new ArrayList<>();
+        learn(new File("data/" + lang),true);
+        for (String otherLang : others) learn(new File("data/"+otherLang), false);
+        weights = new double[27];
+        for (int i = 0; i < weights.length; i++) weights[i] = Math.random();
+
+        for (Training t : TRAINING_LIST ) t.show();
+        trainingAction(TRAINING_LIST);
+    }
+
+    private void learn(File directory, boolean correctLang) {
+        for (File file : directory.listFiles()) studyFile(file,correctLang);
     }
 
 
-    private void studyFile(File file) {
+    private void studyFile(File file, boolean verdict) {
+        lettersCount = new int[26];
+
 
         String line = "";
         try {
             line = String.valueOf(Files.readAllLines(Paths.get(file.toString())))
                          .replaceAll("[^a-zA-Z]", "").toLowerCase();
-            System.out.println(line);
+//            System.out.println(line);
         } catch (MalformedInputException e) {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        char letter = STARTING_CHAR;
-        for (int i = 0; i < lettersCount.length; i++) {
-            lettersCount[i] = countLetter(line, letter);
-            letter++;
-        }
 
+        lettersCount = getLettersCounts(line);
+        if(lettersCount[0]==0) return;
+        TRAINING_LIST.add(new Training(lettersCount,verdict));
 
     }
 
@@ -59,61 +66,71 @@ public class Preceptron {
         return result;
     }
 
-    public boolean check(String test) {
-        return true;
-    }
-
-
-    @Override
-    public String toString() {
-        return "Preceptron{" + name + "}";
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public String showLetters(){
-        String result = "";
-        char c = STARTING_CHAR;
-        for (int i =0; i<lettersCount.length ; i++){
-            result+= c + ": "+lettersCount[i]+" ";
-            c++;
+    private int[] getLettersCounts(String line){
+        int[] result = new int[26];
+        char letter = STARTING_CHAR;
+        for (int i = 0; i < result.length; i++) {
+            result[i] = countLetter(line, letter);
+            letter++;
         }
 
         return result;
     }
 
+    private void trainingAction(List<Training> trainingList) {
 
-//    private static void trainingAction(List<Training> trainingList) {
-//
-//        int iteration = 0;
-//        int error;
-//        int d;
-//        do {
-//            iteration++;
-//            error = 0;
-//            for (Training t : trainingList) {
-//                boolean test = check(t.getArguments());
-//                if (test == t.getOutput()) continue;
-//                d = !test && t.getOutput() ? 1 : -1;
-//                for (int i = 0; i < ARGSIZE; i++) {
-//                    weights[i] += d * LEARNING_RATE * t.getArguments()[i];
-//                }
-//                weights[weights.length - 1] += d * LEARNING_RATE;
-//                error += d * d;
-//            }
-//            System.out.println("it" + iteration + " " + Math.sqrt((double) error / trainingList.size()));
-//        } while (error != 0);
-//
-//        System.out.println(weights[0]+"w + "+weights[1]+"x + "+weights[2]+"y + "+weights[3]+"z + "+weights[4]+" = 0" );
-//    }
-//
-//    private static boolean check(Double[] vector) {
-//        double sum = 0;
-//        for (int i = 0; i < vector.length; i++) sum += vector[i] * weights[i];
-//        sum += weights[weights.length - 1];
-//
-//        return sum >= 0;
-//    }
+        int iteration = 0;
+        int error;
+        int d;
+        do {
+            iteration++;
+            error = 0;
+            for (Training t : trainingList) {
+                boolean test = check(t.getArguments());
+                if (test == t.getOutput()) continue;
+                d = !test && t.getOutput() ? 1 : -1;
+                for (int i = 0; i < t.getArguments().length; i++) {
+                    weights[i] += d * LEARNING_RATE * t.getArguments()[i];
+                }
+                weights[weights.length - 1] += d * LEARNING_RATE;
+                error += d * d;
+            }
+            System.out.println("it" + iteration + " " + Math.sqrt((double) error / trainingList.size()));
+        } while (error != 0);
+
+        char c = 'a';
+
+        for (double di: weights
+             ) {
+            System.out.print(di+""+c+" ");
+            c++;
+        }
+        System.out.println(" = 0" );
+    }
+
+    public boolean check(String test) {
+        test = test.replaceAll("[^a-zA-Z]", "").toLowerCase();
+        int[] vector;
+        vector = getLettersCounts(test);
+
+        return check(vector);
+    }
+
+    private boolean check(int[] vector) {
+        double sum = 0;
+        for (int i = 0; i < vector.length; i++) sum += vector[i] * weights[i];
+        sum += weights[weights.length - 1];
+
+        return sum >= 0;
+    }
+
+    public String getLang() {
+        return lang;
+    }
+
+    @Override
+    public String toString() {
+        return "Preceptron{" + lang + "}";
+    }
+
 }

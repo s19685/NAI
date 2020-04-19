@@ -1,7 +1,6 @@
 package com.company;
 
 import java.io.File;
-import java.sql.SQLOutput;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
@@ -17,7 +16,7 @@ public class Main {
         String options = "";
 
         for (String lang : directories) {
-            preceptrons.add(new Preceptron(lang));
+            preceptrons.add(new Preceptron(lang, directories));
             options += lang + " ";
         }
 
@@ -30,12 +29,10 @@ public class Main {
 
             test = scanner.nextLine();
 
-            String result = "";
-            for (Preceptron p : preceptrons ) result = !p.check(test) ? "" : p.getName();
+            for (Preceptron p : preceptrons ) System.out.print(!p.check(test) ? "" : "Podany tekst jest w jezyku: "+p.getLang());
+            System.out.println();
+            System.out.println();
 
-
-            if(result.equals("")) result = "nieznanym";
-            System.out.println("Podany tekst jest w jezyku: "+result);
         }
     }
 }
