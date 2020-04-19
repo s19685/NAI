@@ -6,6 +6,7 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.net.MalformedURLException;
+import java.nio.charset.MalformedInputException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.Map;
@@ -13,29 +14,49 @@ import java.util.Scanner;
 
 public class Preceptron {
     private String name;
-    private Map<String,Integer> symbolsCount;
+    private int[] lettersCount;
+    private static final char STARTING_CHAR = 'a';
 
 
-    public Preceptron(String name){
+    public Preceptron(String name) {
         this.name = name;
-        learn(new File("data/"+name));
+        System.out.println(this.toString());
+        lettersCount = new int[26];
+        learn(new File("data/" + name));
     }
 
     private void learn(File directory) {
-        for (File file : directory.listFiles() ) studyFile(file);
+        for (File file : directory.listFiles()) studyFile(file);
+        System.out.println();
+        System.out.println(showLetters());
     }
 
 
     private void studyFile(File file) {
 
+        String line = "";
         try {
-            Files.readAllLines(Paths.get(file.toString()));
+            line = String.valueOf(Files.readAllLines(Paths.get(file.toString())))
+                         .replaceAll("[^a-zA-Z]", "").toLowerCase();
+            System.out.println(line);
+        } catch (MalformedInputException e) {
         } catch (IOException e) {
             e.printStackTrace();
         }
+        char letter = STARTING_CHAR;
+        for (int i = 0; i < lettersCount.length; i++) {
+            lettersCount[i] = countLetter(line, letter);
+            letter++;
+        }
 
 
+    }
 
+    private int countLetter(String line, char letter) {
+        int result = 0;
+        for (int i = 0; i < line.length(); i++)
+            if (line.charAt(i) == letter) result++;
+        return result;
     }
 
     public boolean check(String test) {
@@ -45,13 +66,23 @@ public class Preceptron {
 
     @Override
     public String toString() {
-        return "Preceptron{"+ name + "}";
+        return "Preceptron{" + name + "}";
     }
 
     public String getName() {
         return name;
     }
 
+    public String showLetters(){
+        String result = "";
+        char c = STARTING_CHAR;
+        for (int i =0; i<lettersCount.length ; i++){
+            result+= c + ": "+lettersCount[i]+" ";
+            c++;
+        }
+
+        return result;
+    }
 
 
 //    private static void trainingAction(List<Training> trainingList) {
