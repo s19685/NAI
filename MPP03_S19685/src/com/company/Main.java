@@ -1,14 +1,11 @@
 package com.company;
 
 import java.io.File;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Scanner;
+import java.util.*;
 
 public class Main {
 
     public static void main(String[] args) {
-        // write your code here
 
         List<Preceptron> preceptrons = new ArrayList();
         File file = new File("data");
@@ -20,18 +17,23 @@ public class Main {
             options += lang + " ";
         }
 
-
         Scanner scanner = new Scanner(System.in);
         while (true) {
             String test = "";
             System.out.println("Wpisz tekst w jednym z jezykow: " + options);
 
-
             test = scanner.nextLine();
 
-            for (Preceptron p : preceptrons ) System.out.print(!p.check(test) ? "" : "Podany tekst jest w jezyku: "+p.getLang());
-            System.out.println();
-            System.out.println();
+            Double[] res = new Double[preceptrons.size()];
+
+            for (int i = 0; i < res.length; i++) {
+                res[i] = preceptrons.get(i).check(test);
+                System.out.println(preceptrons.get(i).getLang() + " "+res[i]);
+            }
+            int maxIndex = Arrays.asList(res).indexOf(Collections.max(Arrays.asList(res)));
+
+            System.out.println("Podany tekst jest w jezyku: "+ preceptrons.get(maxIndex).getLang());
+            System.out.println("=====================================================================");
 
         }
     }
