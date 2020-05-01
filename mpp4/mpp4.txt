@@ -1,0 +1,21 @@
+MPP 4
+
+ 
+
+Przeprowadzić algorytm grupowania k-means dla irysów. 
+
+ 
+
+Podczas grupowania ignorujemy atrybut decyzyjny. Wczytujemy od użytkownika wartość k.
+
+ 
+
+Program ma wyświetlać:
+
+·       po każdej iteracji: dla każdej grupy sumę kwadratów odległości punktów do środka grupy.
+
+·       po zakończeniu grupowania: składy grup wraz z ich entropią (policzoną z rozkładu gatunków kwiatów w grupie).
+
+ 
+
+Nie można używać żadnych bibliotek ML, wszystko ma być implementowane od zera w pętlach, if-ach, odległości trzeba liczyć za pomocą dzialań matematycznych, etc.
