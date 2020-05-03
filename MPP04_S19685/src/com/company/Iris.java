@@ -10,9 +10,7 @@ public class Iris {
         this.name = name;
     }
 
-    public String getName() {
-        return name;
-    }
+    public String getName() { return name; }
 
     public double[] getPoints() {
         return points;
