@@ -14,7 +14,10 @@ Dane testowe – plik iris_test.txt
 
 Jako wynik ma wypisać dokładność eksperymentu wyrażoną w procentach i macierz omyłek. Jeśli nie występują przesłanki do wygładzania – przeprowadzić wygładzanie dla pierwszego atrybutu. 
 
- 
+ Dokldnosc ile prawidłowych
+ Precyzja macierz omyłek
+ Pelnosc 
+ Fmiara	
 
 Wydrukować prawdopodobieństwa przed i po każdym wygładzaniu.
 

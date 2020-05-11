@@ -30,11 +30,25 @@ public class Bayes {
     public void testing(List<String[]> test) {
         int counter = 0;
         int sum = test.size();
+        int trueSetosa = 0;
+        int trueVirgin = 0;
+        int trueVersi = 0;
+        int index = 0;
         for (String[] line : test ) {
             double[] viktor = new double[4];
             for (int i = 0; i < viktor.length; i++) viktor[i] = Double.valueOf(line[i].replace(",","."));
-            if(classify(viktor).equals(line[4])) counter++;
+            String verdict = classify(viktor);
+            if(verdict.equals(line[4])) counter++;
+            if(verdict.equals("Iris-setosa") && index<10) trueSetosa++;
+            if(verdict.equals("Iris-versicolor") && (index>=10 && index<20)) trueVersi++;
+            if(verdict.equals("Iris-virginica") && (index>=20 && index<30)) trueVirgin++;
+            index++;
         }
+
+        System.out.println("\n        poprawnie | niepoprawnie");
+        System.out.println("SETOSA:     "+100*trueSetosa/10.0 + "%| "+100*(10-trueSetosa)/10.0+"%");
+        System.out.println("VIRGINICA:  "+100*trueVirgin/10.0 +"% | "+100*(10-trueVirgin)/10.0+"%");
+        System.out.println("VERSICOLOR: "+100*trueVersi/10.0 + "% | "+100*(10-trueVersi)/10.0+"%");
 
         System.out.println("Poprawnie zaklasyfikowano "+String.format("%.2f",100.0*counter/sum)+"%");
     }
