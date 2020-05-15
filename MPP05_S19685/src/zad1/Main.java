@@ -39,7 +39,7 @@ public class Main {
                 System.out.println("podaj " + (i + 1) + " argument");
                 vector[i] = scanner.nextDouble();
             }
-            System.out.println("\nPodany wektor zaklasyfikowano jako: "+bayes.classify(vector));
+//            System.out.println("\nPodany wektor zaklasyfikowano jako: "+bayes.classify(vector));
         }
     }
 }

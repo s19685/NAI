@@ -28,12 +28,12 @@ public class Bayes {
     }
 
     public void testing(List<String[]> test) {
-        int counter = 0;
         int sum = test.size();
-        int trueSetosa = 0;
-        int trueVirgin = 0;
-        int trueVersi = 0;
-        int index = 0;
+        int counter = 0,
+            trueSetosa = 0,
+            trueVirgin = 0,
+            trueVersi = 0,
+            index = 0;
         for (String[] line : test ) {
             double[] viktor = new double[4];
             for (int i = 0; i < viktor.length; i++) viktor[i] = Double.valueOf(line[i].replace(",","."));
@@ -49,7 +49,7 @@ public class Bayes {
         System.out.println("SETOSA:     "+100*trueSetosa/10.0 + "%| "+100*(10-trueSetosa)/10.0+"%");
         System.out.println("VIRGINICA:  "+100*trueVirgin/10.0 +"% | "+100*(10-trueVirgin)/10.0+"%");
         System.out.println("VERSICOLOR: "+100*trueVersi/10.0 + "% | "+100*(10-trueVersi)/10.0+"%");
-
+        //TODO some measure results
         System.out.println("Poprawnie zaklasyfikowano "+String.format("%.2f",100.0*counter/sum)+"%");
     }
 
