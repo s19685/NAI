@@ -10,13 +10,10 @@ import java.util.Scanner;
 public class Main {
 
     static final int SIZE = 4;
-    private static List<String[]> TRAINING_SET;
-    private static List<String[]> TEST_SET;
+    private static List<String[]> TRAINING_SET = new ArrayList<>();
+    private static List<String[]> TEST_SET = new ArrayList<>();
 
     public static void main(String[] args) {
-
-        TRAINING_SET = new ArrayList<>();
-        TEST_SET = new ArrayList<>();
 
         try {
             List<String> lines = Files.readAllLines(Paths.get("iris_training.txt"));
@@ -34,7 +31,7 @@ public class Main {
         while (true) {
 
             double[] vector = new double[SIZE];
-            System.out.println("\nPodaj wektor skladajacy sie z " + SIZE + "argumentow:");
+            System.out.println("\nPodaj wektor skladajacy sie z " + SIZE + " argumentow:");
             for (int i = 0; i < SIZE; i++) {
                 System.out.println("podaj " + (i + 1) + " argument");
                 vector[i] = scanner.nextDouble();
