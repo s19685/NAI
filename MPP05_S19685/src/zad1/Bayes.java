@@ -63,9 +63,9 @@ public class Bayes {
             System.out.println(i==0?"           pozytywne:      "+trues[i]+"   |     "+ (10-trues[i]) +"":"           pozytywne:      "+trues[i]+"    |     "+ (10-trues[i]) +"");
             System.out.println("           negatywne:      "+falses[i]+"    |    "+(20-falses[i])+"\n");
 
-            System.out.println("Dokladnosc: "+);
-            System.out.println("Dokladnosc: "+);
-            System.out.println("Dokladnosc: "+);
+            System.out.println("Precyzja: "+ trues[i]/(trues[i]+falses[i]));
+            System.out.println("Pelnosc: "+trues[i]/(trues[i]+(10-trues[i])));
+            System.out.println("F-miara: "+);
         }
 
 //        System.out.println("SETOSA:     "+100*trues[0]/10.0 + "%| "+100*(10-trues[0])/10.0+"%");
