@@ -31,15 +31,15 @@ public class Main {
         bayes.testing(TEST_SET);
 
         Scanner scanner = new Scanner(System.in);
-        while (true){
+        while (true) {
 
-            double [] vector = new double[SIZE];
+            double[] vector = new double[SIZE];
             System.out.println("\nPodaj wektor skladajacy sie z " + SIZE + "argumentow:");
-            for (int i = 0; i < SIZE ; i++) {
+            for (int i = 0; i < SIZE; i++) {
                 System.out.println("podaj " + (i + 1) + " argument");
                 vector[i] = scanner.nextDouble();
             }
-//            System.out.println("\nPodany wektor zaklasyfikowano jako: "+bayes.classify(vector));
+            System.out.println("\nPodany wektor zaklasyfikowano jako: " + bayes.classify(vector));
         }
     }
 }
