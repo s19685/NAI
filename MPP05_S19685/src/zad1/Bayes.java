@@ -8,6 +8,7 @@ public class Bayes {
     private List<double[]> SETOSAs = new ArrayList<>();
     private List<double[]> VIRGINICAs = new ArrayList<>();
     private List<double[]> VERSICOLORs = new ArrayList<>();
+    private static final String[] NAMES = {"SETOSA","VERSICOLOR","VIRGINICA"};
 
     public Bayes(List<String[]> training) {
         for (int i = 0; i < Main.SIZE; i++) {
@@ -29,26 +30,47 @@ public class Bayes {
 
     public void testing(List<String[]> test) {
         int sum = test.size();
+        int [] trues = new int[3];
+        int [] falses = new int[3];
+
         int counter = 0,
-            trueSetosa = 0,
-            trueVirgin = 0,
-            trueVersi = 0,
             index = 0;
         for (String[] line : test ) {
             double[] viktor = new double[4];
             for (int i = 0; i < viktor.length; i++) viktor[i] = Double.valueOf(line[i].replace(",","."));
             String verdict = classify(viktor);
             if(verdict.equals(line[4])) counter++;
-            if(verdict.equals("Iris-setosa") && index<10) trueSetosa++;
-            if(verdict.equals("Iris-versicolor") && (index>=10 && index<20)) trueVersi++;
-            if(verdict.equals("Iris-virginica") && (index>=20 && index<30)) trueVirgin++;
+
+            if(verdict.equals("Iris-setosa") && index<10) trues[0]++;
+            if(verdict.equals("Iris-setosa") && (index>=10 && index<20)) falses[0]++;
+            if(verdict.equals("Iris-setosa") && (index>=20 && index<30)) falses[0]++;
+
+
+            if(verdict.equals("Iris-versicolor") && index<10) falses[1]++;
+            if(verdict.equals("Iris-versicolor") && (index>=10 && index<20)) trues[1]++;
+            if(verdict.equals("Iris-versicolor") && (index>=20 && index<30)) falses[1]++;
+
+            if(verdict.equals("Iris-virginica") && index<10) falses[2]++;
+            if(verdict.equals("Iris-virginica") && (index>=10 && index<20)) falses[2]++;
+            if(verdict.equals("Iris-virginica") && (index>=20 && index<30)) trues[2]++;
             index++;
         }
 
-        System.out.println("\n        poprawnie | niepoprawnie");
-        System.out.println("SETOSA:     "+100*trueSetosa/10.0 + "%| "+100*(10-trueSetosa)/10.0+"%");
-        System.out.println("VIRGINICA:  "+100*trueVirgin/10.0 +"% | "+100*(10-trueVirgin)/10.0+"%");
-        System.out.println("VERSICOLOR: "+100*trueVersi/10.0 + "% | "+100*(10-trueVersi)/10.0+"%");
+        System.out.println(falses[2]+"   ---"+falses[0]+ " "+falses[1]);
+        for (int i = 0; i < NAMES.length; i++) {
+            System.out.println(NAMES[i]);
+            System.out.println("zakwalyfikowane jako: pozytywne | negatywne");
+            System.out.println(i==0?"           pozytywne:      "+trues[i]+"   |     "+ (10-trues[i]) +"":"           pozytywne:      "+trues[i]+"    |     "+ (10-trues[i]) +"");
+            System.out.println("           negatywne:      "+falses[i]+"    |    "+(20-falses[i])+"\n");
+
+            System.out.println("Dokladnosc: "+);
+            System.out.println("Dokladnosc: "+);
+            System.out.println("Dokladnosc: "+);
+        }
+
+//        System.out.println("SETOSA:     "+100*trues[0]/10.0 + "%| "+100*(10-trues[0])/10.0+"%");
+//        System.out.println("VIRGINICA:  "+100*trues[1]/10.0 +"% | "+100*(10-trues[1])/10.0+"%");
+//        System.out.println("VERSICOLOR: "+100*trues[2]/10.0 + "% | "+100*(10-trues[2])/10.0+"%");
         //TODO some measure results
         System.out.println("Poprawnie zaklasyfikowano "+String.format("%.2f",100.0*counter/sum)+"%");
     }
@@ -57,7 +79,7 @@ public class Bayes {
         double setosa = countProbability(vector, "Iris-setosa");
         double virginica = countProbability(vector, "Iris-virginica");
         double versicolor = countProbability(vector, "Iris-versicolor");
-        System.out.println("\nsetosa: " + setosa);
+        System.out.println("setosa: " + setosa);
         System.out.println("virginica: " + virginica);
         System.out.println("versicolor: " + versicolor);
         double max = Math.max(setosa, Math.max(virginica, versicolor));
