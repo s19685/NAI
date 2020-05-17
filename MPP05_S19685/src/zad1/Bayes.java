@@ -114,14 +114,6 @@ class Bayes {
         return result / 3;
     }
 
-    private int howManyFor(double v, int i) {
-        int result=0;
-        for (double d : SETOSAs.get(i) ) if(v == d) result++;
-        for (double d : VERSICOLORs.get(i) ) if(v == d) result++;
-        for (double d : VIRGINICAs.get(i) ) if(v == d) result++;
-        return result;
-    }
-
     private void distinctValues() {
         List<List<Double>> ds = new ArrayList();
         for (int i = 0; i < DISTINCTS.length; i++) {
