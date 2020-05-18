@@ -1,0 +1,14 @@
+Instrukcje
+MPP 6 Implementować rozwiązanie problemu plecakowego.
+
+ 
+
+Dane wejściowe: plik plecak.txt  zawierający 10 zestawów danych. 
+
+ 
+
+Losujemy numer zestawu od 1 do 10.
+
+ 
+
+Wypisujemy optymalny skład plecaka wyliczony przez algorytm wyczerpujący w postaci listy trójek [nr przedmiotu, size, value], jego całkowitą wartość i pojemność oraz czas wykonania.
