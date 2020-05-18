@@ -5,10 +5,10 @@ import java.util.List;
 
 class Bayes {
 
+    private int[] DISTINCTS = new int[4];
     private List<double[]> SETOSAs = new ArrayList<>();
     private List<double[]> VIRGINICAs = new ArrayList<>();
     private List<double[]> VERSICOLORs = new ArrayList<>();
-    private int[] DISTINCTS = new int[4];
     private static final String[] NAMES = {"SETOSA", "VERSICOLOR", "VIRGINICA"};
 
     Bayes(List<String[]> training) {
@@ -37,7 +37,11 @@ class Bayes {
         int[] falses = new int[3];
 
         int counter = 0,
-                index = 0;
+                index = 0,
+                fakeSetosa = 0,
+                fakeSetosa1 = 0,
+                fakeVersicolor = 0,
+                fakeVirginica = 0;
         for (String[] line : test) {
             double[] viktor = new double[4];
             for (int i = 0; i < viktor.length; i++) viktor[i] = Double.valueOf(line[i].replace(",", "."));
@@ -49,31 +53,58 @@ class Bayes {
             if (verdict.equals("Iris-setosa") && (index >= 20 && index < 30)) falses[0]++;
 
 
-            if (verdict.equals("Iris-versicolor") && index < 10) falses[1]++;
+            if (verdict.equals("Iris-versicolor") && index < 10) fakeSetosa++;
             if (verdict.equals("Iris-versicolor") && (index >= 10 && index < 20)) trues[1]++;
-            if (verdict.equals("Iris-versicolor") && (index >= 20 && index < 30)) falses[1]++;
+            if (verdict.equals("Iris-versicolor") && (index >= 20 && index < 30)) fakeVersicolor++;
 
-            if (verdict.equals("Iris-virginica") && index < 10) falses[2]++;
-            if (verdict.equals("Iris-virginica") && (index >= 10 && index < 20)) falses[2]++;
+            if (verdict.equals("Iris-virginica") && index < 10) fakeSetosa1++;
+            if (verdict.equals("Iris-virginica") && (index >= 10 && index < 20)) fakeVirginica++;
             if (verdict.equals("Iris-virginica") && (index >= 20 && index < 30)) trues[2]++;
+//            if (verdict.equals("Iris-setosa") && index < 10) trues[0]++;
+//            if (verdict.equals("Iris-setosa") && (index >= 10 && index < 20)) falses[0]++;
+//            if (verdict.equals("Iris-setosa") && (index >= 20 && index < 30)) falses[0]++;
+//
+//
+//            if (verdict.equals("Iris-versicolor") && index < 10) falses[1]++;
+//            if (verdict.equals("Iris-versicolor") && (index >= 10 && index < 20)) trues[1]++;
+//            if (verdict.equals("Iris-versicolor") && (index >= 20 && index < 30)) falses[1]++;
+//
+//            if (verdict.equals("Iris-virginica") && index < 10) falses[2]++;
+//            if (verdict.equals("Iris-virginica") && (index >= 10 && index < 20)) falses[2]++;
+//            if (verdict.equals("Iris-virginica") && (index >= 20 && index < 30)) trues[2]++;
             index++;
         }
 
         double p, r;
-        for (int i = 0; i < NAMES.length; i++) {
-            System.out.println(NAMES[i]);
-            System.out.println("zakwalyfikowane jako: pozytywne | negatywne");
-            System.out.println(i == 0 ? "           pozytywne:      " + trues[i] + "   |     " + (10 - trues[i]) + "" : "           pozytywne:      " + trues[i] + "    |     " + (10 - trues[i]) + "");
-            System.out.println("           negatywne:      " + falses[i] + "    |    " + (20 - falses[i]));
+//        for (int i = 0; i < NAMES.length; i++) {
+//            System.out.println(NAMES[i]);
+//            System.out.println("zakwalyfikowane jako: pozytywne | negatywne");
+//            System.out.println(i == 0 ? "           pozytywne:      " + trues[i] + "   |     " + (10 - trues[i]) + "" : "           pozytywne:      " + trues[i] + "    |     " + (10 - trues[i]) + "");
+//            System.out.println("           negatywne:      " + falses[i] + "    |    " + (20 - falses[i]));
+//
+//            p = (double) trues[i] / (trues[i] + falses[i]);
+//            r = (double) trues[i] / (trues[i] + (10 - trues[i]));
+//
+//            System.out.println("Precyzja: " + String.format("%.2f", p * 100) + "%");
+//            System.out.println("Pelnosc: " + String.format("%.2f", r * 100) + "%");
+//            System.out.println("F-miara: " + String.format("%.2f", 2 * p * r / (p + r) * 100) + "%\n");
+//        }
 
-            p = (double) trues[i] / (trues[i] + falses[i]);
-            r = (double) trues[i] / (trues[i] + (10 - trues[i]));
+        System.out.println("zakwalifikowano jako SETOSA | VERSICOLOR | VIRGINICA");
+        System.out.println("SETOSA:                "+trues[0]+"   |      "+falses[0]+"     |    "+ falses[0]);
+        System.out.println("VERSICOLOR:             "+fakeSetosa+"   |      "+trues[1]+"     |    "+ fakeVirginica);
+        System.out.println("VIRGINICA:              "+fakeSetosa1+"   |      "+fakeVersicolor+"     |    "+ trues[2]);
+        double ts = (double) trues[0]+trues[1]+trues[2];
+        p = ts/(ts+fakeSetosa+fakeSetosa1+fakeVersicolor);
+        r = ts/(ts+falses[0]+fakeVirginica);
 
-            System.out.println("Precyzja: " + String.format("%.2f", p * 100) + "%");
-            System.out.println("Pelnosc: " + String.format("%.2f", r * 100) + "%");
-            System.out.println("F-miara: " + String.format("%.2f", 2 * p * r / (p + r) * 100) + "%\n");
-        }
-        System.out.println("Poprawnie zaklasyfikowano " + String.format("%.2f", 100.0 * counter / sum) + "%");
+        System.out.println("\nDokladnosc: " + String.format("%.2f", 100.0 * counter / sum) + "%");
+        System.out.println("Precyzja:   " + String.format("%.2f", p * 100) + "%");
+        System.out.println("Pelnosc:    " + String.format("%.2f", r * 100) + "%");
+        System.out.println("F-miara:    " + String.format("%.2f", 2 * p * r / (p + r) * 100) + "%\n");
+
+
+
     }
 
     String classify(double[] vector) {
@@ -122,6 +153,7 @@ class Bayes {
             for (double d : VERSICOLORs.get(i) ) if(!ds.get(i).contains(d)) ds.get(i).add(d);
             for (double d : VIRGINICAs.get(i) ) if(!ds.get(i).contains(d)) ds.get(i).add(d);
             DISTINCTS[i] = ds.get(i).size();
+            System.out.println(DISTINCTS[i]);
         }
     }
 
