@@ -16,7 +16,9 @@ public class Main {
     public static void main(String[] args) {
 
         try {
+            String[] arr = new String[]{"xd", "xd"};
             List<String> lines = Files.readAllLines(Paths.get("iris_training.txt"));
+            lines.toArray(arr);
             List<String> test = Files.readAllLines(Paths.get("iris_test.txt"));
             for (String line : lines) TRAINING_SET.add(line.replace(" ", "").split("\t"));
             for (String line : test) TEST_SET.add(line.replace(" ", "").split("\t"));
