@@ -3,26 +3,26 @@ package zad1;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
+import java.util.*;
 
 public class Knapsack {
 
     private List<Item> items;
+    private List<Item> packed;
     private int length;
     private int capacity;
+    private int finalValue;
 
     public Knapsack(List<Item> items, int length, int capacity) {
         this.items = items;
         this.length = length;
         this.capacity = capacity;
+        finalValue = 0;
     }
 
     public static Knapsack SelectFromFile(String file, int choice) {
-
         List<Item> result = new ArrayList<>();
-        int length = 0, capacity = 0;
+        int length = 0, capacity = 0, i = 0;
 
         try {
             List<String> lines = Files.readAllLines(Paths.get(file));
@@ -30,8 +30,6 @@ public class Knapsack {
             length = Integer.parseInt(lines.get(0).substring(9, 11));
             capacity = Integer.parseInt(lines.get(0).substring(22, 24));
 
-
-            int i = 0;
             boolean isFound = false;
             while (!isFound) {
                 if (lines.get(i).contains("dataset " + choice)) {
@@ -50,7 +48,6 @@ public class Knapsack {
                 }
                 i++;
             }
-
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -58,32 +55,38 @@ public class Knapsack {
         return new Knapsack(result, length, capacity);
     }
 
-    public void pack(){
-
+    public void pack() {
+        List<Item> result;
+        int localSum, localCapa;
+        long bound = (long) Math.pow(2, length);
         long startTime = System.currentTimeMillis();
 
-        for (Item item : items) {
-            System.out.println(item);
+        for (int i = 0; i < bound; i++) {
+            localCapa = 0;
+            localSum = 0;
+            result = new ArrayList<>();
 
-            try {
-                Thread.sleep(1000);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
+            for (int j = 0; j < length; j++) {
+                if ((i & (1 << j)) > 0) {
+                    localCapa += items.get(j).size;
+                    localSum += items.get(j).value;
+                    result.add(items.get(j));
+                }
             }
 
+            if (localSum > finalValue && localCapa <= capacity) {
+                finalValue = localSum;
+                packed = result;
+                System.out.println(finalValue + " " + localCapa + " " + i);
+            }
         }
+
         long stopTime = System.currentTimeMillis();
 
-
-        String time;
-        System.out.println("czas: "+(stopTime-startTime)/1000.0+"s");
-
+        for (Item i : packed) System.out.println(i);
+        System.out.println("Ostateczny wynik: " + finalValue);
+        System.out.println("czas: " + (stopTime - startTime) / 1000.0 + "s");
     }
-
-
-
-
-
 
     private static class Item {
 
