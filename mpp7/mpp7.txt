@@ -1,0 +1,9 @@
+MPP 7 Implementować rozwiązanie problemu komiwojażera.
+
+ 
+
+Dane wejściowe w pliku tsp.txt – graf skierowany z 15 miastami.
+
+ 
+
+Jako wynik program ma wypisać ścieżki znalezione przez algorytm wyczerpujący i wspinaczkowy wraz z ich długością i czasem wykonania.
