@@ -8,7 +8,7 @@ import java.util.*;
 public class Knapsack {
 
     private List<Item> items;
-    private List<Item> packed;
+    private int[] packed;
     private int length;
     private int capacity;
     private int finalValue;
@@ -56,7 +56,7 @@ public class Knapsack {
     }
 
     public void pack() {
-        List<Item> result;
+        int[] result;
         int localSum, localCapa;
         long bound = (long) Math.pow(2, length);
         long startTime = System.currentTimeMillis();
@@ -64,13 +64,12 @@ public class Knapsack {
         for (int i = 0; i < bound; i++) {
             localCapa = 0;
             localSum = 0;
-            result = new ArrayList<>();
-
+            result = new int[length];
             for (int j = 0; j < length; j++) {
                 if ((i & (1 << j)) > 0) {
                     localCapa += items.get(j).size;
                     localSum += items.get(j).value;
-                    result.add(items.get(j));
+                    result[j] = 1;
                 }
             }
 
@@ -83,7 +82,8 @@ public class Knapsack {
 
         long stopTime = System.currentTimeMillis();
 
-        for (Item i : packed) System.out.println(i);
+        System.out.println();
+        for (int i = 0; i < packed.length; i++) System.out.print(packed[i] == 1 ? items.get(i) + "\n" : "");
         System.out.println("Ostateczny wynik: " + finalValue);
         System.out.println("czas: " + (stopTime - startTime) / 1000.0 + "s");
     }
