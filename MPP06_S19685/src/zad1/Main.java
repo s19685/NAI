@@ -7,7 +7,7 @@ public class Main {
         int choice = (int) (Math.random() * 15) + 1;
         System.out.println("Your lucky number is: " + choice);
 
-        Knapsack knapsack = Knapsack.SelectFromFile("plecak.txt", choice);
+        Knapsack knapsack = Knapsack.SelectFromFile("plecak.txt", 7);
         knapsack.pack();
     }
 }
